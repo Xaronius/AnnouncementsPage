@@ -1,0 +1,13 @@
+package com.example.announcementspage;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class AnnouncementsPageApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(AnnouncementsPageApplication.class, args);
+    }
+
+}
