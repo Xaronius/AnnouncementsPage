@@ -1,15 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="styles.css">
 <head>
     <meta charset="UTF-8">
     <title>Main View</title>
 </head>
-<body>
-<h1>
+<body class = "body">
+<div class = "buttonsDiv">
+    <form action="/" method="get">
+        <button class = "pagesButtons" type="submit">
+            Main Page
+        </button>
+    </form>
+    <form action="/announcements" method="get">
+        <button class = "pagesButtons" type="submit">
+            All announcements
+        </button>
+    </form>
+    <form action="/CreateNew" method="get">
+        <button class = "pagesButtons" type="submit">
+            Create New
+        </button>
+    </form>
+    <button class = "pagesButtons">
+        4rd button (maybe profile?)
+    </button>
+</div>
+<h1 class="header1">
     Main View Title
 </h1>
-<p1>
-    lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-</p1>
+<div style="margin-top: 20px;">
+    <div class = "mainPageAnnouncement1Div">
+        <h2 class = "MainPageAnnouncementHeader">
+            Announcement 1
+        </h2>
+        <p class = "MainPageAnnouncementText">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        </p>
+    </div>
+    <div class = "mainPageAnnouncement2Div">
+        <h2 class = "MainPageAnnouncementHeader">
+            Announcement 2
+        </h2>
+        <p class = "MainPageAnnouncementText">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        </p>
+    </div>
+</div>
+<div style="margin-top: 20px; margin-left: 2%;">
+    <div class = "mainPageAnnouncement3Div">
+        <h2 class = "MainPageAnnouncementHeader">
+            Announcement 3
+        </h2>
+        <p class = "MainPageAnnouncementText">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        </p>
+    </div>
+    <div class = "mainPageAnnouncement3Div">
+        <h2 class = "MainPageAnnouncementHeader">
+            Announcement 4
+        </h2>
+        <p class = "MainPageAnnouncementText">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        </p>
+    </div>
+    <div class = "mainPageAnnouncement3Div">
+        <h2 class = "MainPageAnnouncementHeader">
+            Announcement 5
+        </h2>
+        <p class = "MainPageAnnouncementText">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        </p>
+    </div>
+</div>
 </body>
 </html>
