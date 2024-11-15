@@ -22,12 +22,23 @@
             Create New
         </button>
     </form>
-    <button class = "pagesButtons">
-        4rd button (maybe profile?)
-    </button>
+    <form action="/Profile" method="get">
+        <button class = "pagesButtons" type="submit">
+            4rd button (maybe profile?)
+        </button>
+    </form>
 </div>
 <h1 class="header1">
     Here you create new announcement!
 </h1>
 </body>
+<div style = "text-align: center">
+    <form action="/createdNew">
+        <label for="title" style="font-size: 20px; font-weight: bold;">Announcement Title</label><br><br>
+        <input class = "NewAnnouncementTitle" type="text" id="title" name="title"><br><br>
+        <label for="announcementText" style="font-size: 20px; font-weight: bold;">Announcement Text</label><br><br>
+        <input class = "NewAnnouncementText" type="text" id="announcementText" name="announcementText"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
 </html>

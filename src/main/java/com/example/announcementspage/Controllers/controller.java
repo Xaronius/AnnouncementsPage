@@ -23,4 +23,10 @@ public class controller {
         return "createNew.html"; // You may also return a JSON response if needed
     }
 
+    @GetMapping("/Profile")
+    public String ProfilePage() {
+        System.out.println("Success");
+        return "Profile.html"; // You may also return a JSON response if needed
+    }
+
 }
