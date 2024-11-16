@@ -64,6 +64,17 @@
     text-align: center;
 }
 
+.AnnouncementButton{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    vertical-align: middle;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .MainPageAnnouncementHeader{
     color: white;
     font-weight: bold;
@@ -110,4 +121,8 @@
 .NewAnnouncementText{
     height: 300px;
     width: 60%;
+}
+
+.announcementButton{
+
 }
