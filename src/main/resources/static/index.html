@@ -32,14 +32,31 @@
     Main View Title
 </h1>
 <div style="margin-top: 20px;">
-    <div class = "mainPageAnnouncement1Div">
-        <h2 class = "MainPageAnnouncementHeader">
-            Announcement 1
-        </h2>
-        <p class = "MainPageAnnouncementText">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-        </p>
-    </div>
+    <!-- <form action="/announcement" method="post" class = "mainPageAnnouncement1Div">
+        <input type="hidden" name="title" value="Announcement 1">
+        <input type="hidden" name="text" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor">
+        <button type = "submit" class="AnnouncementButton">
+            <h2 class = "MainPageAnnouncementHeader">
+                Announcement 1
+            </h2>
+            <p class = "MainPageAnnouncementText">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            </p>
+        </button>
+    </form> -->
+    <form action="/announcement" method="get" class="mainPageAnnouncement1Div">
+        <input type="hidden" name="title" value="Announcement 1">
+        <input type="hidden" name="text" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor">
+
+        <button type="submit" class="AnnouncementButton">
+            <h2 class="MainPageAnnouncementHeader">
+                Announcement 1
+            </h2>
+            <p class="MainPageAnnouncementText">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            </p>
+        </button>
+    </form>
     <div class = "mainPageAnnouncement2Div">
         <h2 class = "MainPageAnnouncementHeader">
             Announcement 2
