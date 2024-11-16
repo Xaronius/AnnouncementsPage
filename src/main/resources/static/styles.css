@@ -57,6 +57,7 @@
 
 .mainPageAnnouncement3Div{
     display: inline-block;
+    vertical-align: middle;
     background-color: blue;
     height: 300px;
     width: 30%;
@@ -88,6 +89,7 @@
     height: 200px;
     width: 90%;
     margin-left: 5%;
+    margin-top: 20px;
     background-color: blue;
 }
 
