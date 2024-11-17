@@ -7,7 +7,7 @@
 </head>
 <body class = "body">
 <div class = "buttonsDiv">
-    <form action="/" method="get">
+    <form action="/" method="get" style = "margin-left: 225px">
         <button class = "pagesButtons" type="submit">
             Main Page
         </button>
@@ -22,11 +22,14 @@
             Create New
         </button>
     </form>
-    <form action="/Profile" method="get">
-        <button class = "pagesButtons" type="submit">
-            4rd button (maybe profile?)
-        </button>
-    </form>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropButton">Profile</button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="/Profile">Profile</a>
+            <a href="/MyAnnouncements">My Announcements</a>
+            <a href="/Statistics">Statistics</a>
+        </div>
+    </div>
 </div>
 <h1 class="header1">
     Main View Title

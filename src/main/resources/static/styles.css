@@ -115,16 +115,74 @@
 }
 
 .NewAnnouncementTitle{
-    text-align: center;
     width: 20%;
     height: 24px;
+    font-size: 20px;
+    text-align: center;
 }
 
 .NewAnnouncementText{
     height: 300px;
+    font-size: 16px;
     width: 60%;
 }
 
-.announcementButton{
-
+.announcementPageDiv{
+    width: 90%;
+    height: 90%;
+    margin-left: 5%;
+    background-color: mediumslateblue;
+    text-align: center;
 }
+
+/* Dropdown Button */
+.dropButton {
+    color: white;
+    padding: 2px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    background-color: midnightblue;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 150px;
+    margin-right: 50px;
+    border-radius: 60px;
+    width: 60px;
+    height: 60px;
+}
+
+/* Dropdown button on hover & focus */
+.dropButton:hover, .dropButton:focus {
+    background-color: #2980B9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
