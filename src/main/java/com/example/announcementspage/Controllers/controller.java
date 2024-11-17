@@ -29,6 +29,11 @@ public class controller {
     public String ProfilePage() {
         return "Profile.html"; // You may also return a JSON response if needed
     }
+
+    @GetMapping("/MyAnnouncements")
+    public String MyAnnouncementsPage() {
+        return "MyAnnouncements.html";
+    }
 /*
     @PostMapping("/announcement")
     public String showAnnouncement(@RequestParam("title") String title, @RequestParam("text") String text, Model model) {
