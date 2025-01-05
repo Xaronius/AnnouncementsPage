@@ -34,16 +34,34 @@
 <h1 class="header1">
     Here you create new announcement!
 </h1>
-<div style = "text-align: center">
+<div style="text-align: center">
     <form action="/createdNew">
-        <label for="title" style="font-size: 20px; font-weight: bold;">Announcement Title</label><br><br>
-        <input class = "NewAnnouncementTitle" type="text" id="title" name="title" maxlength="25"><br><br>
-        <label for="announcementText" style="font-size: 20px; font-weight: bold;">Announcement Text</label><br><br>
-        <textarea class = "NewAnnouncementText" type="text" id="announcementText" name="announcementText"></textarea><br><br></br>
-        <input type="submit" value="Submit">
+        <label class="NewLabels" for="title">Announcement Title</label><br><br>
+        <input class="NewAnnouncementTitle" type="text" id="title" name="title" maxlength="25"><br><br>
+        <label class="NewLabels" for="announcementText">Announcement Text</label><br><br>
+        <textarea class="NewAnnouncementText" id="announcementText" name="announcementText"></textarea><br><br>
+        <label class="NewLabels" for="email">Email Address</label><br><br>
+        <input class="NewAnnouncementEmail" type="email" id="email" name="email" required><br><br>
+        <label class="NewLabels" for="telephone">Phone Number</label><br><br>
+        <input class="NewAnnouncementTelephone"
+               type="tel"
+               id="telephone"
+               name="telephone"
+               maxlength="10"
+               pattern="\d{10}"
+               required
+               oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);"><br><br>
+        <div class="uploadContainer">
+            <h2>Upload an Image</h2>
+            <label for="imageInput" class="custom-file-label">Choose File</label>
+            <input type="file" id="imageInput" accept="image/*" required>
+            <button class="imageUpload" type="button">Upload</button>
+            <img id="preview" alt="Image Preview">
+            <p id="status"></p>
+        </div>
+        <input class="submitButton" type="submit" value="Submit">
     </form>
 </div>
-
 <script src="/CreateNew.js"></script>
 </body>
 </html>
