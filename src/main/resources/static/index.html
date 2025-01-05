@@ -35,14 +35,18 @@
     Main View Title
 </h1>
 <div style="margin-top: 20px;">
-    <form action="/announcement" method="get" class="mainPageAnnouncement1Div">
+    <form action="/announcement" method="post" class="mainPageAnnouncement1Div">
+        <input type="hidden" name="email" value="example@example.com">
+        <input type="hidden" name="telephone" value="555-1234">
         <button type="submit" class="AnnouncementButton">
             <h2 class="MainPageAnnouncementHeader">
                 Announcement 1
             </h2>
             <p class="MainPageAnnouncementText">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 1
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 111111111
             </p>
+            <input type="file" name="image" accept="image/*" id="imageInput">
+            <img id="imagePreview" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png" alt="Default Image" style="max-width: 100px; display: block;">
         </button>
     </form>
     <form action="/announcement" method="get" class="mainPageAnnouncement2Div">
