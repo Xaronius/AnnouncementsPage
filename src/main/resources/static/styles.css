@@ -31,6 +31,14 @@
     border-radius: 5px;
 }
 
+.bottomDiv{
+    background-color: mediumslateblue;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 /* ---------------------- Main Page ---------------------- */
 
 .header1{
@@ -46,6 +54,7 @@
     margin-left: 4%;
     margin-right: 1%;
     text-align: center;
+    overflow: hidden;
 }
 
 .mainPageAnnouncement2Div{
@@ -56,6 +65,7 @@
     width: 29.25%;
     margin-left: 1%;
     text-align: center;
+    overflow: hidden;
 }
 
 .mainPageAnnouncement3Div{
@@ -66,6 +76,7 @@
     width: 30%;
     margin-left: 2%;
     text-align: center;
+    overflow: hidden;
 }
 
 .MainPageAnnouncementHeader{
@@ -75,6 +86,9 @@
 
 .MainPageAnnouncementText{
     color: white;
+    line-height: 1.4;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 /* -------------------- Button for main page and all Announcements page -------------------- */
@@ -278,4 +292,29 @@
     margin-bottom: 50px;
     border: none;
     border-radius: 5px;
+}
+
+/* ----------------------------- announcement Page ------------------------- */
+
+.announcementPageText{
+    text-align: center;
+}
+
+.announcementPageEmail{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.announcementPageTelephone{
+    text-align: center;
+    font-size: 24px;
+}
+
+.announcementPageNickname{
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+    padding-right: 10px;
+    padding-bottom: 10px;
 }
