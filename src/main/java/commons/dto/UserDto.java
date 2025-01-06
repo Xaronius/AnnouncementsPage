@@ -1,7 +1,6 @@
 package commons.dto;
 
 import commons.entities.User;
-import commons.models.BaseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto implements BaseDto {
-
+public class UserDto {
     private Long id;
     private String login;
     private String email;

@@ -1,26 +1,23 @@
 package commons.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Setter
-@Table(name=User.TABLE_NAME, uniqueConstraints = {@UniqueConstraint(columnNames = User.ID)})
-
+@Table(name = "USERS_010")
 public class User {
-
     private static final int LOGIN_LENGTH = 32;
-    public static final String TABLE_NAME = "USERS_010";
     public static final String ID = "ID_010";
     public static final String LOGIN = "LOGIN_010";
     public static final String EMAIL = "EMAIL_010";
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter
     private Long id;
+    @Setter
     private String login;
+    @Setter
     private String email;
 
     @Id
