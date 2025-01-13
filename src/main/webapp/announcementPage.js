@@ -1,14 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
-    console.log('All Parameters:', Array.from(urlParams.entries())); // Debug log
-
     const title = urlParams.get('title') || 'Default Title';
     const text = urlParams.get('text') || 'Default Text';
     const email = urlParams.get('email') || 'Default Email';
     const telephone = urlParams.get('telephone') || 'Default Phone Number';
     const nickName = urlParams.get('nickName') || 'Default Nickname';
-    const image = urlParams.get('image') || '';
-
+    const images = urlParams.get('images') || ''; // This will be a comma-separated list of image URLs
 
     // Set the text content for title, text, email, and telephone
     document.getElementById('announcement-title').textContent = title;
@@ -17,9 +14,22 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('announcement-telephone').textContent = telephone;
     document.getElementById('announcement-nickname').textContent = nickName;
 
-    // Display the image if the URL is available
-    if (image) {
-        const imageElement = document.getElementById('announcement-image');
-        imageElement.src = image; // Set the image source to the URL from the query parameters
+    // Handle images: Check if images exist
+    const imageContainer = document.getElementById('announcement-images-container');
+    if (images) {
+        const imageUrls = images.split(',');  // Split the comma-separated list of image URLs
+        imageContainer.innerHTML = ''; // Clear previous images
+
+        if (imageUrls.length > 0 && imageUrls[0] !== '') {
+            imageUrls.forEach((imgUrl, index) => {
+                const imgElement = document.createElement('img');
+                imgElement.src = imgUrl;
+                imgElement.alt = `Announcement Image ${index + 1}`;
+                imgElement.style.width = '100%';
+                imgElement.style.maxWidth = '400px';
+                imgElement.style.margin = '10px';
+                imageContainer.appendChild(imgElement);
+            });
+        }
     }
 });

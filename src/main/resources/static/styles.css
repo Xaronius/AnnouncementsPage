@@ -45,6 +45,10 @@
     text-align: center;
 }
 
+.image-container img {
+    display: none;
+}
+
 .mainPageAnnouncement1Div{
     display: inline-block;
     vertical-align: middle;
