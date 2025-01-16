@@ -1,35 +1,40 @@
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
-    const title = urlParams.get('title') || 'Default Title';
-    const text = urlParams.get('text') || 'Default Text';
-    const email = urlParams.get('email') || 'Default Email';
-    const telephone = urlParams.get('telephone') || 'Default Phone Number';
-    const nickName = urlParams.get('nickName') || 'Default Nickname';
-    const images = urlParams.get('images') || ''; // This will be a comma-separated list of image URLs
+    const adId = urlParams.get('adId');  // Get the adId from the URL
 
-    // Set the text content for title, text, email, and telephone
-    document.getElementById('announcement-title').textContent = title;
-    document.getElementById('announcement-text').textContent = text;
-    document.getElementById('announcement-email').textContent = email;
-    document.getElementById('announcement-telephone').textContent = telephone;
-    document.getElementById('announcement-nickname').textContent = nickName;
+    if (adId) {
+        fetch(`/api/announcements/${adId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch announcement details');
+                }
+                return response.json();
+            })
+            .then(announcement => {
+                // Populate the page with announcement data
+                document.getElementById('announcement-title').textContent = announcement.title;
+                document.getElementById('announcement-text').textContent = announcement.description;
+                document.getElementById('announcement-email').textContent = `Email: ${announcement.contactEmail}`;
+                document.getElementById('announcement-telephone').textContent = `Phone: ${announcement.contactPhone}`;
+                document.getElementById('announcement-nickname').textContent = `User ID: ${announcement.nickName}`;
 
-    // Handle images: Check if images exist
-    const imageContainer = document.getElementById('announcement-images-container');
-    if (images) {
-        const imageUrls = images.split(',');  // Split the comma-separated list of image URLs
-        imageContainer.innerHTML = ''; // Clear previous images
+                const imageContainer = document.getElementById('announcement-images-container');
+                imageContainer.innerHTML = '';  // Clear existing images
 
-        if (imageUrls.length > 0 && imageUrls[0] !== '') {
-            imageUrls.forEach((imgUrl, index) => {
-                const imgElement = document.createElement('img');
-                imgElement.src = imgUrl;
-                imgElement.alt = `Announcement Image ${index + 1}`;
-                imgElement.style.width = '100%';
-                imgElement.style.maxWidth = '400px';
-                imgElement.style.margin = '10px';
-                imageContainer.appendChild(imgElement);
-            });
-        }
+                if (announcement.images && announcement.images.length > 0) {
+                    announcement.images.forEach((base64Image, index) => {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = 'data:image/jpeg;base64,' + base64Image;
+                        imgElement.alt = `Announcement Image ${index + 1}`;
+                        imgElement.style.width = '100%';
+                        imgElement.style.maxWidth = '400px';
+                        imgElement.style.margin = '10px';
+                        imageContainer.appendChild(imgElement);
+                    });
+                }
+            })
+            .catch(error => console.error('Error fetching announcement:', error));
+    } else {
+        console.error('No adId provided in URL');
     }
 });
