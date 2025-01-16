@@ -1,66 +1,71 @@
 document.addEventListener('DOMContentLoaded', function () {
-    let currentPage = 0; // Start with the first page
-    const pageSize = 10; // Number of announcements per page
-    let totalAnnouncements = 0; // To hold total announcements count
-    let totalPages = 0; // To hold total pages count
+    let currentPage = 0;
+    const pageSize = 10;
+    let totalAnnouncements = 0;
+    let totalPages = 0;
+    let selectedCategoryId = '';  // Holds the selected category ID
 
+    // Fetch available categories for the dropdown
+    function fetchCategories() {
+        fetch('/api/announcements/categories')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch categories');
+                }
+                return response.json();
+            })
+            .then(categories => {
+                console.log('Fetched categories:', categories);  // Debug log
+                const dropdown = document.getElementById('categorySelect');
+
+                categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.id;
+                    option.textContent = category.name;
+                    dropdown.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching categories:', error));  // Log the error here
+    }
+
+    // Fetch announcements with optional category filter
     function fetchAnnouncements(page) {
-        console.log(`Fetching announcements for page ${page}...`); // Log current page
+        let url = `/api/announcements/list?page=${page}&size=${pageSize}`;
 
-        fetch(`/api/announcements/list?page=${page}&size=${pageSize}`)
+        // Append category filter if selected
+        if (selectedCategoryId) {
+            url += `&categoryId=${selectedCategoryId}`;
+        }
+
+        fetch(url)
             .then(response => response.json())
             .then(data => {
-                console.log('Fetched data:', data);  // Log the full response for debugging
-
-                // Extracting the necessary values from the response
-                const announcements = data.content || []; // Ensure 'content' holds the actual records
-                totalAnnouncements = data.totalElements || 0; // Total number of announcements
-                totalPages = data.totalPages || 1; // Total number of pages
-
-                console.log(`Total announcements: ${totalAnnouncements}, Total pages: ${totalPages}`);
+                const announcements = data.content || [];
+                totalAnnouncements = data.totalElements || 0;
+                totalPages = data.totalPages || 1;
 
                 displayAnnouncements(announcements);
-                updatePaginationVisibility(currentPage, totalPages); // Update pagination visibility based on current page
+                updatePaginationVisibility(currentPage, totalPages);
             })
             .catch(error => console.error('Error fetching announcements:', error));
     }
 
+    // Handle category selection change
+    document.querySelector('#categorySelect').addEventListener('change', function () {
+        selectedCategoryId = this.value;
+        currentPage = 0;  // Reset to the first page
+        fetchAnnouncements(currentPage);
+    });
+
     function displayAnnouncements(announcements) {
-        console.log('Received announcements:', announcements);  // Log the announcements to debug
-        const container = document.querySelector('#announcements-container');  // Correct selector
-        container.innerHTML = ''; // Clear previous announcements
+        const container = document.querySelector('#announcements-container');
+        container.innerHTML = '';
 
         announcements.forEach(announcement => {
-            const announcementForm = document.createElement('form');
-            announcementForm.classList.add('AnnouncementsDiv'); // Match the main page form structure
+            const announcementDiv = document.createElement('div');
+            announcementDiv.classList.add('AnnouncementsDiv');
+            announcementDiv.style.cursor = 'pointer';  // Make it look clickable
 
-            // Hidden input fields for the form submission
-            const emailInput = document.createElement('input');
-            emailInput.type = 'hidden';
-            emailInput.name = 'email';
-            emailInput.value = announcement.contactEmail;
-
-            const telephoneInput = document.createElement('input');
-            telephoneInput.type = 'hidden';
-            telephoneInput.name = 'telephone';
-            telephoneInput.value = announcement.contactPhone;
-
-            const nickNameInput = document.createElement('input');
-            nickNameInput.type = 'hidden';
-            nickNameInput.name = 'nickName';
-            nickNameInput.value = announcement.nickName || 'N/A';
-
-            const imageInput = document.createElement('input');
-            imageInput.type = 'hidden';
-            imageInput.name = 'image';
-            imageInput.value = announcement.images[0]?.image || ''; // Use the first image or leave empty
-
-            // Create the submit button for the form
-            const submitButton = document.createElement('button');
-            submitButton.type = 'submit';
-            submitButton.classList.add('AnnouncementButton');
-
-            // Create the title and description elements
             const titleElement = document.createElement('h2');
             titleElement.classList.add('AnnouncementsTitle');
             titleElement.textContent = announcement.title;
@@ -69,82 +74,43 @@ document.addEventListener('DOMContentLoaded', function () {
             descriptionElement.classList.add('AnnouncementsText');
             descriptionElement.textContent = announcement.description;
 
-            // Append all elements to the form
-            submitButton.appendChild(titleElement);
-            submitButton.appendChild(descriptionElement);
-            announcementForm.appendChild(emailInput);
-            announcementForm.appendChild(telephoneInput);
-            announcementForm.appendChild(nickNameInput);
-            announcementForm.appendChild(imageInput);
-            announcementForm.appendChild(submitButton);
+            announcementDiv.appendChild(titleElement);
+            announcementDiv.appendChild(descriptionElement);
 
-            // Add images if they exist
+            // Click event: Redirect to the announcement page with adId
+            announcementDiv.addEventListener('click', function () {
+                window.location.href = `/announcementPage.html?adId=${announcement.id}`;
+            });
+
             if (announcement.images && announcement.images.length > 0) {
                 const imageContainer = document.createElement('div');
                 imageContainer.classList.add('image-container');
-                announcement.images.forEach(image => {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = image.image;
-                    imgElement.alt = 'Announcement Image';
-                    imgElement.style.maxWidth = '200px';
-                    imgElement.style.marginRight = '10px';
-                    imageContainer.appendChild(imgElement);
-                });
-                announcementForm.appendChild(imageContainer);
+
+                const imgElement = document.createElement('img');
+                imgElement.src = 'data:image/jpeg;base64,' + announcement.images[0];  // Show the first image as preview
+                imgElement.alt = 'Announcement Image';
+                imgElement.style.maxWidth = '200px';
+                imgElement.style.marginRight = '10px';
+
+                imageContainer.appendChild(imgElement);
+                announcementDiv.appendChild(imageContainer);
             }
 
-            // Append the form to the container
-            container.appendChild(announcementForm);
-
-            // Event listener for form submission
-            announcementForm.addEventListener('submit', function (event) {
-                event.preventDefault();  // Prevent default form submission
-
-                // Collect data from the form
-                const title = encodeURIComponent(announcement.title || 'No Title');
-                const text = encodeURIComponent(announcement.description || 'No Description');
-                const email = encodeURIComponent(announcement.contactEmail || 'No Email');
-                const telephone = encodeURIComponent(announcement.contactPhone || 'No Phone');
-                const nickName = encodeURIComponent(announcement.nickName || 'Unknown User');
-
-                // Collect all image URLs from hidden inputs (only if images exist)
-                const images = announcement.images.map(img => encodeURIComponent(img.image));
-
-                // Prepare the URL for redirection
-                const imagesParam = images.length > 0 ? `&images=${images.join(',')}` : '';
-                const redirectUrl = `/announcementPage.html?title=${title}&text=${text}&email=${email}&telephone=${telephone}&nickName=${nickName}${imagesParam}`;
-
-                // Redirect to the announcement page with the query parameters
-                console.log('Redirecting to:', redirectUrl);
-                window.location.href = redirectUrl;
-            });
+            container.appendChild(announcementDiv);
         });
     }
 
-    // Function to update the visibility of the pagination buttons
     function updatePaginationVisibility(currentPage, totalPages) {
         const nextButton = document.querySelector('.pagesButtons.next');
         const prevButton = document.querySelector('.pagesButtons.prev');
 
-        // Show/Hide the Previous button based on currentPage
-        if (currentPage === 0) {
-            prevButton.style.display = 'none';  // Hide Previous button on first page
-        } else {
-            prevButton.style.display = 'inline-block';  // Show Previous button on pages > 1
-        }
-
-        // Show/Hide the Next button based on currentPage
-        if (currentPage === totalPages - 1) {
-            nextButton.style.display = 'none';  // Hide Next button on last page
-        } else {
-            nextButton.style.display = 'inline-block';  // Show Next button on pages < totalPages
-        }
+        prevButton.style.display = currentPage === 0 ? 'none' : 'inline-block';
+        nextButton.style.display = currentPage === totalPages - 1 ? 'none' : 'inline-block';
     }
 
-    // Event listener for pagination buttons (previous and next)
+    // Pagination buttons
     document.querySelector('.pagesButtons.next').addEventListener('click', function () {
         if (currentPage < totalPages - 1) {
-            console.log('Next button clicked');
             currentPage++;
             fetchAnnouncements(currentPage);
         }
@@ -152,15 +118,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelector('.pagesButtons.prev').addEventListener('click', function () {
         if (currentPage > 0) {
-            console.log('Previous button clicked');
             currentPage--;
             fetchAnnouncements(currentPage);
         }
     });
 
-    // Initial fetch of the first page of announcements
-    fetchAnnouncements(currentPage);
+    // Initialize the page
+    fetchCategories();      // Load categories into dropdown
+    fetchAnnouncements(0);  // Load all announcements initially
 });
+
 
 // ----------------------------- Dropdown ----------------------------- //
 function myFunction() {
