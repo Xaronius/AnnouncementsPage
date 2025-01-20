@@ -3,6 +3,7 @@ package com.example.announcementspage.Controllers;
 import ch.qos.logback.core.util.StringUtil;
 import com.example.announcementspage.services.UserService;
 import commons.entities.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class UserController {
     private User user;
 
     @PostMapping("/login")
-    public ResponseEntity<Void> handleFormSubmit(@RequestParam String username, @RequestParam String password, Model model) {
+    public ResponseEntity<Void> handleFormSubmit(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
 
         if (StringUtil.isNullOrEmpty(password))
             return responseToHtml("/LoginPage");
@@ -34,7 +35,11 @@ public class UserController {
         if (Objects.isNull(user)) {
             return responseToHtml("/LoginPage");
         }
-        return userService.checkPasswordById(password, user) ? responseToHtml("/index") : responseToHtml("/LoginPage");
+        if (userService.checkPasswordById(password, user)) {
+            session.setAttribute("loggedUser", user);
+            return responseToHtml("/index");
+        }
+        return responseToHtml("/LoginPage");
     }
 
     @PostMapping("/register")
@@ -48,7 +53,8 @@ public class UserController {
             return responseToHtml("/RegisterPage");
         }
         if (Objects.nonNull(userService.findUserByUsername(username))) {
-            return responseToHtml("/RegisterPage");
+            model.addAttribute("message", "User already exist!");
+            //return responseToHtml("/RegisterPage");
         }
 
         try {
