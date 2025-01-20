@@ -35,4 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
-/sqlite/announcementsapp_sqlite.db
+/sqlite/
