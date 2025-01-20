@@ -22,6 +22,12 @@ document.getElementById('password').addEventListener('keydown', function(event) 
     }
 });
 
+document.getElementById("submitButton").addEventListener("click", function() {
+    if (event.button === 0) {
+        document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+    }
+});
+
 
 function showNotification(message) {
     const notification = document.getElementById('notification');
