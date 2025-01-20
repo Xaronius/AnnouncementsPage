@@ -2,7 +2,6 @@ package com.example.announcementspage.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class controller {
@@ -22,11 +21,6 @@ public class controller {
         return "RegisterPage.html";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "dashboard.html";
-    }
-
     @GetMapping("/announcements")
     public String announcementsPage() {
         return "announcements.html"; // You may also return a JSON response if needed
@@ -35,6 +29,11 @@ public class controller {
     @GetMapping("/CreateNew")
     public String CreateNewPage() {
         return "createNew.html"; // You may also return a JSON response if needed
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboardPage() {
+        return "dashboard.html";
     }
 
     @GetMapping("/Profile")
@@ -59,9 +58,9 @@ public class controller {
     }
     */
 
-    @GetMapping("/announcement")
-    public String showAnnouncement(@RequestParam("title") String title,
-                                   @RequestParam("text") String text) {
-        return "redirect:/announcementPage.html?title=" + title + "&text=" + text;
-    }
+//    @GetMapping("/mainpage/announcement")
+//    public String showAnnouncement(@RequestParam("title") String title,
+//                                   @RequestParam("text") String text) {
+//        return "redirect:/announcementPage.html?title=" + title + "&text=" + text;
+//    }
 }

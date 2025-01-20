@@ -8,13 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.net.URI;
 import java.util.Objects;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -45,7 +48,6 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<Void> handleFormSubmit(@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model) {
 
-        headers = new HttpHeaders();
         if (StringUtil.isNullOrEmpty(password) || StringUtil.isNullOrEmpty(username) || StringUtil.isNullOrEmpty(email)) {
             model.addAttribute("username", username);
             model.addAttribute("email", email);
@@ -54,7 +56,7 @@ public class UserController {
         }
         if (Objects.nonNull(userService.findUserByUsername(username))) {
             model.addAttribute("message", "User already exist!");
-            //return responseToHtml("/RegisterPage");
+            return responseToHtml("/RegisterPage");
         }
 
         try {
@@ -70,6 +72,7 @@ public class UserController {
     }
 
     private ResponseEntity<Void> responseToHtml(String uri) {
+        headers = new HttpHeaders();
         headers.setLocation(URI.create(uri));
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }

@@ -8,10 +8,10 @@
 <body class = "body">
     <div class="main-containder">
         <div class="header">
-            <form id="dashboardForm" action="/mainpage/Dashboard" method="get">
+            <form id="dashboardForm" action="/dashboard" method="get">
                 <button type="submit" class="btn" id="dashboardButton">Dashboard</button>
             </form>
-            <form id="allAnnouncementsForm" action="/mainpage/AllAnnouncements" method="get">
+            <form id="allAnnouncementsForm" action="/announcements" method="get">
                 <button class = "btn" type="submit">All announcements</button>
             </form>
             <form id="createForm" action="/mainpage/CreateNew" method="get">
@@ -20,9 +20,9 @@
             <div class="dropdown">
                 <button onclick="myFunction()" class="dropdown-btn">Profile</button>
                 <div id="listDropdown" class="dropdown-content">
-                    <a href="/Profile">Profile</a>
-                    <a href="/MyAnnouncements">My Announcements</a>
-                    <a href="/Statistics">Statistics</a>
+                    <a th:href="@{/Profile}">Profile</a>
+                    <a th:href="@{/MyAnnouncements}">My Announcements</a>
+                    <a th:href="@{/Statistics}">Statistics</a>
                 </div>
             </div>
         </div>
