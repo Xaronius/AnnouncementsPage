@@ -5,5 +5,4 @@ import commons.entities.User;
 public interface CustomUserRepository {
 
     User findUserByUsername(String username);
-    String getHashByUserId(Long userId);
 }
