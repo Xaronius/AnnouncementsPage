@@ -9,7 +9,7 @@ public class controller {
 
     @GetMapping("/")
     public String homePage() {
-        return "dashboard.html";
+        return "LoginPage.html";
     }
 
     @GetMapping("/LoginPage")
@@ -20,6 +20,11 @@ public class controller {
     @GetMapping("/RegisterPage")
     public String registerPage() {
         return "RegisterPage.html";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "dashboard.html";
     }
 
     @GetMapping("/announcements")

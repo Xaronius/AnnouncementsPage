@@ -37,7 +37,7 @@ public class UserController {
         }
         if (userService.checkPasswordById(password, user)) {
             session.setAttribute("loggedUser", user);
-            return responseToHtml("/index");
+            return responseToHtml("/dashboard");
         }
         return responseToHtml("/LoginPage");
     }
