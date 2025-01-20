@@ -1,18 +1,25 @@
 package com.example.announcementspage.Controllers;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class controller {
 
     @GetMapping("/")
     public String homePage() {
-        return "index.html"; // This maps to index.html in the templates folder
+        return "LoginPage.html";
+    }
+
+    @GetMapping("/LoginPage")
+    public String loginPage() {
+        return "LoginPage.html";
+    }
+
+    @GetMapping("/RegisterPage")
+    public String registerPage() {
+        return "RegisterPage.html";
     }
 
     @GetMapping("/announcements")
@@ -45,7 +52,8 @@ public class controller {
         // Return the name of the template to display
         return "announcementPage.html"; // Points to announcementPage.html
     }
-*/
+    */
+
     @GetMapping("/announcement")
     public String showAnnouncement(@RequestParam("title") String title,
                                    @RequestParam("text") String text) {
