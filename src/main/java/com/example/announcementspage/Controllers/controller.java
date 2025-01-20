@@ -1,13 +1,14 @@
 package com.example.announcementspage.Controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class controller {
 
     @GetMapping("/")
-    public String homePage() {
+    public String homePage(Model model) {
         return "LoginPage.html";
     }
 
@@ -63,4 +64,9 @@ public class controller {
 //                                   @RequestParam("text") String text) {
 //        return "redirect:/announcementPage.html?title=" + title + "&text=" + text;
 //    }
+
+    private boolean checkIfLoggedIn() {
+
+        return true;
+    }
 }
