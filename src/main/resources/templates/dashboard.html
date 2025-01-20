@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link href="newstyles.css" rel="stylesheet">
+</head>
+<body class = "body">
+    <div class="main-containder">
+        <div class="header">
+            <form id="dashboardForm" action="/mainpage/Dashboard" method="get">
+                <button type="submit" class="btn" id="dashboardButton">Dashboard</button>
+            </form>
+            <form id="allAnnouncementsForm" action="/mainpage/AllAnnouncements" method="get">
+                <button class = "btn" type="submit">All announcements</button>
+            </form>
+            <form id="createForm" action="/mainpage/CreateNew" method="get">
+                <button class = "btn" type="submit">Create New</button>
+            </form>
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropdown-btn">Profile</button>
+                <div id="listDropdown" class="dropdown-content">
+                    <a href="/Profile">Profile</a>
+                    <a href="/MyAnnouncements">My Announcements</a>
+                    <a href="/Statistics">Statistics</a>
+                </div>
+            </div>
+        </div>
+        <div class="header1">
+            <h1 id="headerA" style="margin-top: 100px">
+                Dashboard
+            </h1>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <form action="/announcement" method="get" class="mainPageAnnouncement1Div">
+                <button type="submit" class="AnnouncementButton">
+                    <h2 class="MainPageAnnouncementHeader">
+                        Announcement 1
+                    </h2>
+                    <p class="MainPageAnnouncementText">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 1
+                    </p>
+                </button>
+            </form>
+            <form action="/announcement" method="get" class="mainPageAnnouncement2Div">
+                <button type="submit" class="AnnouncementButton">
+                    <h2 class="MainPageAnnouncementHeader">
+                        Announcement 2
+                    </h2>
+                    <p class="MainPageAnnouncementText">
+                        Another example of announcement content.
+                    </p>
+                </button>
+            </form>
+        </div>
+        <div style="margin-top: 20px; margin-left: 2%;">
+            <form action="/announcement" method="get" class="mainPageAnnouncement3Div">
+                <button type="submit" class="AnnouncementButton">
+                    <h2 class="MainPageAnnouncementHeader">
+                        Announcement 3
+                    </h2>
+                    <p class="MainPageAnnouncementText">
+                        lorem3
+                    </p>
+                </button>
+            </form>
+            <form action="/announcement" method="get" class="mainPageAnnouncement3Div">
+                <button type="submit" class="AnnouncementButton">
+                    <h2 class="MainPageAnnouncementHeader">
+                        Announcement 4
+                    </h2>
+                    <p class="MainPageAnnouncementText">
+                        lorem 4444444444
+                    </p>
+                </button>
+            </form>
+            <form action="/announcement" method="get" class="mainPageAnnouncement3Div">
+                <button type="submit" class="AnnouncementButton">
+                    <h2 class="MainPageAnnouncementHeader">
+                        Announcement 5
+                    </h2>
+                    <p class="MainPageAnnouncementText">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolorem dolores impedit, maxime nulla numquam officia, optio perferendis perspiciatis quam quasi quibusdam, quidem quisquam reiciendis repudiandae sequi similique unde ut. 555555
+                    </p>
+                </button>
+            </form>
+        </div>
+    </div>
+<script src="/index.js"></script>
+</body>
+</html>
