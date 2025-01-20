@@ -10,6 +10,7 @@ public class User {
     private static final int LOGIN_LENGTH = 32;
     public static final String ID = "ID_010";
     public static final String LOGIN = "LOGIN_010";
+    public static final String PASSWORD = "PASSWORD_011_010";
     public static final String EMAIL = "EMAIL_010";
 
     @Id
@@ -21,7 +22,10 @@ public class User {
     @Setter
     private String email;
 
-    @Id
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Setter
+    private Password password;
+
     @Column(name = ID, nullable = false)
     public Long getId() { return this.id; }
 
@@ -30,4 +34,6 @@ public class User {
 
     @Column(name = EMAIL, nullable = false)
     public String getEmail() { return this.email; }
+    @Column(name = PASSWORD, nullable = false)
+    public Password getPassword() { return this.password; }
 }

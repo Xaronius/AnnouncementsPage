@@ -1,0 +1,52 @@
+<!-- src/main/resources/templates/RegisterPage.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
+    <title>Register Page</title>
+    <link href="styles.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="login-container">
+    <div class="login-box">
+        <h1>Register</h1>
+        <div id="notification" class="notification" style="display: none;">
+            <p id="notification-text"></p>
+        </div>
+        <form id="loginForm" action="/user/register" method="post">
+            <div class="input-group">
+                <label for="username">Login</label>
+                <input type="text" id="username" name="username" placeholder="Enter your login" autocomplete="username" th:text="${username}" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" th:text="${email}" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" th:text="${password}" required>
+            </div>
+            <button type="submit" class="btn" id="submitButton">Register</button>
+        </form>
+        <p class="register-link">Do you have an account? <a th:href="@{/LoginPage}">Login</a></p>
+    </div>
+</div>
+<div>
+    <script src="Register.js">
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            const submitButton = document.getElementById('submitButton');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+
+            setTimeout(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Login';
+            }, 3000); // Simulating request delay
+
+            event.preventDefault();
+        });
+    </script>
+</div>
+</body>
+</html>
