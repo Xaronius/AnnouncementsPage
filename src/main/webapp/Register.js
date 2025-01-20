@@ -9,28 +9,39 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
         if (!username || !password || !email) {
             showNotification("Please fill in all fields.");
+            event.preventDefault();
             return;
         }
         if (!usernameRegex.test(username)) {
             showNotification("Invalid username. 3-20 characters");
+            event.preventDefault();
             return;
         }
 
         if (!passwordRegex.test(password)) {
             showNotification("Invalid password. Minimum 8 characters, at least 1 letter and 1 number");
+            event.preventDefault();
             return;
         }
         if (!emailRegex.test(email)) {
             showNotification("Invalid email.");
+            event.preventDefault();
+            return;
         }
-    // Adding enter key listener for smoother UX
-    document.getElementById('password').addEventListener('keydown', function(event) {
+
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+});
+document.getElementById('password').addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             document.getElementById('loginForm').dispatchEvent(new Event('submit'));
         }
     });
+document.getElementById("submitButton").addEventListener("click", function(event) {
+    if (event.button === 0) {
+        document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+    }
 });
-
 function showNotification(message) {
     const notification = document.getElementById('notification');
     const notificationText = document.getElementById('notification-text');

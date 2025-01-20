@@ -16,7 +16,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // Configure the security filter chain
         http.csrf().disable();
-        http.authorizeHttpRequests(auth -> auth
+        http.cors().and().authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/user/login",
                                 "/user/register",

@@ -1,5 +1,4 @@
 document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -10,6 +9,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     if (!username || !password) {
         showNotification("Please fill in both fields.");
+        event.preventDefault();
         return;
     }
 
@@ -22,7 +22,7 @@ document.getElementById('password').addEventListener('keydown', function(event) 
     }
 });
 
-document.getElementById("submitButton").addEventListener("click", function() {
+document.getElementById("submitButton").addEventListener("click", function(event) {
     if (event.button === 0) {
         document.getElementById('loginForm').dispatchEvent(new Event('submit'));
     }
