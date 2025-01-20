@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -31,11 +33,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean checkPasswordById(String password, Long userId) {
-        if (userId > 0) {
-            String hash = userRepository.getHashByUserId(userId);
-
-            return BCrypt.checkpw(password, hash);
+    public Boolean checkPasswordById(String password, User user) {
+        if (Objects.nonNull(user)) {
+            Password hash = passwordRepository.getReferenceById(user.getPassword().getId());
+            return BCrypt.checkpw(password, hash.getHash());
         }
         return false;
     }
@@ -54,7 +55,8 @@ public class UserServiceImpl implements UserService {
         user.setLogin(username);
         user.setEmail(email);
         user.setPassword(password1);
+        userRepository.save(user);
 
-        return userRepository.save(user);
+        return user;
     }
 }

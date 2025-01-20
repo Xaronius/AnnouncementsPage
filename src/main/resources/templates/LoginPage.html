@@ -11,8 +11,8 @@
 <div class="login-container">
     <div class="login-box">
         <h1>Login</h1>
-        <div id="notification" class="notification" style="display: none;">
-            <p id="notification-text"></p>
+        <div id="notification" class="notification"  th:if="${message}" style="display: none;">
+        <p id="notification-text" th:text="${message}"></p>
         </div>
         <form id="loginForm" action="/user/login" method="post">
             <div class="input-group">
