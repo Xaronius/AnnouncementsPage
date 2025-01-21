@@ -44,9 +44,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         const announcementId = form.getAttribute('data-id');
                         console.log('Redirecting to announcement page with adId:', announcementId);  // Log the ID
                         if (announcementId) {
-                            // Redirect with only the announcement ID
-                            window.location.href = `/announcementPage.html?adId=${announcementId}`;
-                        } else {
+                            // Redirect to the /announcementPage endpoint with the adId parameter
+                            window.location.href = `/announcementPage?adId=${announcementId}`;
+                        }
+                        else
+                        {
                             console.error('No ID found for this announcement');
                         }
                     });

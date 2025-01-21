@@ -16,8 +16,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('announcement-text').textContent = announcement.description;
                 document.getElementById('announcement-email').textContent = `Email: ${announcement.contactEmail}`;
                 document.getElementById('announcement-telephone').textContent = `Phone: ${announcement.contactPhone}`;
-                document.getElementById('announcement-nickname').textContent = `User ID: ${announcement.nickName}`;
 
+                // Fetch username using the userId from the announcement
+                fetch(`/user/getUserLogin?userId=${announcement.userId}`)
+                    .then(userResponse => {
+                        if (!userResponse.ok) {
+                            throw new Error('Failed to fetch user login');
+                        }
+                        return userResponse.text();
+                    })
+                    .then(username => {
+                        document.getElementById('announcement-nickname').textContent = `Username: ${username}`;
+                    })
+                    .catch(error => console.error('Error fetching user data:', error));
+
+                // Add images
                 const imageContainer = document.getElementById('announcement-images-container');
                 imageContainer.innerHTML = '';  // Clear existing images
 

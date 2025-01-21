@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,5 +74,18 @@ public class UserController {
         headers = new HttpHeaders();
         headers.setLocation(URI.create(uri));
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+    }
+
+    @GetMapping("/getUserLogin")
+    public ResponseEntity<String> getUserLogin(@RequestParam Long userId) {
+        User user = userService.findUserById(userId);
+        if (user != null)
+        {
+            return ResponseEntity.ok(user.getLogin());  // Return the user's login
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
     }
 }

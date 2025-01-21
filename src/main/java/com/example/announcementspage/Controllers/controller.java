@@ -3,6 +3,7 @@ package com.example.announcementspage.Controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class controller {
@@ -46,6 +47,8 @@ public class controller {
     public String MyAnnouncementsPage() {
         return "MyAnnouncements.html";
     }
+
+
 /*
     @PostMapping("/announcement")
     public String showAnnouncement(@RequestParam("title") String title, @RequestParam("text") String text, Model model) {
@@ -59,6 +62,11 @@ public class controller {
     }
     */
 
+    @GetMapping("/announcementPage")
+    public String showAnnouncement(@RequestParam("adId") long adId, Model model) {
+        model.addAttribute("adId", adId);
+        return "announcementPage"; // This refers to announcementPage.html in the templates folder
+      }
 //    @GetMapping("/mainpage/announcement")
 //    public String showAnnouncement(@RequestParam("title") String title,
 //                                   @RequestParam("text") String text) {
