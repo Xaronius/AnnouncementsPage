@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AnnouncementRepository extends JpaRepository<Announcement, Long> {
     // JpaRepository already provides basic CRUD methods
     Page<Announcement> findByCategory(Long categoryId, Pageable pageable);
+    Page<Announcement> findByUserId(Long userId, Pageable pageable);
 }

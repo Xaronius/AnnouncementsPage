@@ -79,8 +79,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Click event: Redirect to the announcement page with adId
             announcementDiv.addEventListener('click', function () {
-                window.location.href = `/announcementPage.html?adId=${announcement.id}`;
+                const url = `/announcementPage?adId=${announcement.id}`;
+                console.log('Redirecting to:', url);
+                window.location.href = url;
+                //window.location.href = `/announcementPage.html?adId=${announcement.id}`;
             });
+
 
             if (announcement.images && announcement.images.length > 0) {
                 const imageContainer = document.createElement('div');

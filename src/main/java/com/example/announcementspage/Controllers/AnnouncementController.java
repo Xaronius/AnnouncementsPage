@@ -3,15 +3,20 @@ package com.example.announcementspage.Controllers;
 import com.example.announcementspage.repository.AnnouncementImageRepository;
 import com.example.announcementspage.repository.AnnouncementRepository;
 import com.example.announcementspage.repository.CategoryRepository;
+import com.example.announcementspage.services.UserService;
 import commons.entities.Announcement;
 import commons.entities.AnnouncementImage;
 import commons.entities.Category;
+import commons.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,11 +31,16 @@ public class AnnouncementController {
     private final AnnouncementRepository announcementRepository;
     private final AnnouncementImageRepository announcementImageRepository;
     private final CategoryRepository categoryRepository;
+    //private final UserService userService;
 
-    public AnnouncementController(AnnouncementRepository announcementRepository, AnnouncementImageRepository announcementImageRepository, CategoryRepository categoryRepository) {
+    @Autowired
+    private UserService userService;
+
+    public AnnouncementController(AnnouncementRepository announcementRepository, AnnouncementImageRepository announcementImageRepository, CategoryRepository categoryRepository, UserService userService) {
         this.announcementRepository = announcementRepository;
         this.announcementImageRepository = announcementImageRepository;
         this.categoryRepository = categoryRepository;
+        //this.userService = userService;
     }
 
     @GetMapping("/{adId}")
@@ -46,7 +56,7 @@ public class AnnouncementController {
             annMap.put("description", announcement.getDescription());
             annMap.put("contactEmail", announcement.getContactEmail());
             annMap.put("contactPhone", announcement.getContactPhone());
-            annMap.put("nickName", announcement.getUserId());
+            annMap.put("userId", announcement.getUserId());
 
             List<String> base64Images = announcement.getImages().stream()
                     .map(AnnouncementImage::getImage)
@@ -125,6 +135,20 @@ public class AnnouncementController {
     @PostMapping("/create")
     public ResponseEntity<?> createAnnouncement(@RequestBody Map<String, Object> payload) {
         try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            System.out.println("Authentication: " + authentication);
+            // Retrieve current user
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            System.out.println("Retrieved username: " + username);
+
+            User currentUser = userService.findUserByUsername(username);
+            System.out.println("Retrieved user: " + currentUser);
+
+            if (currentUser == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("error", "User not found or not logged in"));
+            }
+
             String title = (String) payload.get("title");
             String description = (String) payload.get("description");
             String email = (String) payload.get("contact_email");
@@ -147,6 +171,8 @@ public class AnnouncementController {
             announcement.setContactEmail(email);
             announcement.setContactPhone(telephone);
             announcement.setCategory(categoryId);  // Set the Category object
+            announcement.setUserId(currentUser.getId()); // Set user ID
+            announcement.setCreatedAt(LocalDateTime.now()); // Set current timestamp
 
             // Save Announcement first to get its ID
             Announcement savedAnnouncement = announcementRepository.save(announcement);
@@ -178,5 +204,52 @@ public class AnnouncementController {
             return map;
         }).toList();
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Map<String, Object>> listAnnouncementsByUser(
+            @PathVariable Long userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    )
+    {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Announcement> announcementPage = announcementRepository.findByUserId(userId, pageable);
+
+        List<Map<String, Object>> announcementsWithImages = announcementPage.getContent().stream().map(announcement -> {
+            Map<String, Object> annMap = new HashMap<>();
+            annMap.put("id", announcement.getAdId());
+            annMap.put("title", announcement.getTitle());
+            annMap.put("description", announcement.getDescription());
+            annMap.put("contactEmail", announcement.getContactEmail());
+            annMap.put("contactPhone", announcement.getContactPhone());
+            annMap.put("nickName", announcement.getUserId());
+
+            List<String> base64Images = announcement.getImages().stream()
+                    .map(AnnouncementImage::getImage)
+                    .toList();
+
+            annMap.put("images", base64Images);
+            return annMap;
+        }).toList();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("content", announcementsWithImages);
+        response.put("totalElements", announcementPage.getTotalElements());
+        response.put("totalPages", announcementPage.getTotalPages());
+        response.put("currentPage", announcementPage.getNumber());
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete/{adId}")
+    public ResponseEntity<?> deleteAnnouncement(@PathVariable Long adId) {
+        Optional<Announcement> announcementOptional = announcementRepository.findById(adId);
+        if (!announcementOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Announcement not found");
+        }
+
+        announcementRepository.deleteById(adId);  // Delete the announcement
+        return ResponseEntity.ok(Map.of("message", "Announcement deleted successfully!"));
     }
 }

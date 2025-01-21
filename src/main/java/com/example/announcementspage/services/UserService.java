@@ -9,4 +9,5 @@ public interface UserService {
     Boolean checkPasswordById(String password, User user);
 
     User createUser(String username, String email, String password);
+    User findUserById(Long id);
 }

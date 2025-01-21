@@ -116,4 +116,10 @@ public class Announcement {
 
     public void setImages(List<AnnouncementImage> images) { this.images = images; }
 
+
+    // default createdAt value
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
