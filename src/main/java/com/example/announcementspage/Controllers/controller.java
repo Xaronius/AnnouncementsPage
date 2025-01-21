@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class controller {
 
     @GetMapping("/")
-    public String homePage() {
+    public String homePage(Model model) {
         return "LoginPage.html";
     }
 
@@ -66,5 +66,15 @@ public class controller {
     public String showAnnouncement(@RequestParam("adId") long adId, Model model) {
         model.addAttribute("adId", adId);
         return "announcementPage"; // This refers to announcementPage.html in the templates folder
+      }
+//    @GetMapping("/mainpage/announcement")
+//    public String showAnnouncement(@RequestParam("title") String title,
+//                                   @RequestParam("text") String text) {
+//        return "redirect:/announcementPage.html?title=" + title + "&text=" + text;
+//    }
+
+    private boolean checkIfLoggedIn() {
+
+        return true;
     }
 }
