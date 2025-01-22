@@ -12,6 +12,8 @@ public class User {
     public static final String LOGIN = "LOGIN_010";
     public static final String PASSWORD = "PASSWORD_011_010";
     public static final String EMAIL = "EMAIL_010";
+    public static final String ROLE = "ROLE_010";
+    public static final String IS_ADMIN = "IS_ADMIN_010";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +28,13 @@ public class User {
     @Setter
     private Password password;
 
+    @Setter
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Role role;
+
+    @Setter
+    private Boolean isAdmin;
+
     @Column(name = ID, nullable = false)
     public Long getId() { return this.id; }
 
@@ -36,4 +45,11 @@ public class User {
     public String getEmail() { return this.email; }
     @Column(name = PASSWORD, nullable = false)
     public Password getPassword() { return this.password; }
+
+    @JoinColumn(name = "ID_013")
+    @Column(name = ROLE)
+    public Role getRole() { return this.role; }
+
+    @Column(name = IS_ADMIN)
+    public Boolean getIsAdmin() { return this.isAdmin; }
 }

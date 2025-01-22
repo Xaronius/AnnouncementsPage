@@ -3,6 +3,7 @@ package com.example.announcementspage.Controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class controller {
@@ -59,11 +60,11 @@ public class controller {
     }
     */
 
-//    @GetMapping("/mainpage/announcement")
-//    public String showAnnouncement(@RequestParam("title") String title,
-//                                   @RequestParam("text") String text) {
-//        return "redirect:/announcementPage.html?title=" + title + "&text=" + text;
-//    }
+    @GetMapping("/announcement")
+    public String showAnnouncement(@RequestParam("title") String title,
+                                   @RequestParam("text") String text) {
+        return "redirect:/announcementPage.html?title=" + title + "&text=" + text;
+    }
 
     private boolean checkIfLoggedIn() {
 
