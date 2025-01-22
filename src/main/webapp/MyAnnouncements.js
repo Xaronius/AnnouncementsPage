@@ -35,11 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
             deleteButton.style.position = 'absolute';  // Button will be positioned relative to announcementDiv
             deleteButton.style.top = '10px';
             deleteButton.style.right = '10px';
-            deleteButton.style.backgroundColor = 'red';
-            deleteButton.style.color = 'white';
-            deleteButton.style.border = 'none';
-            deleteButton.style.padding = '5px 10px';
-            deleteButton.style.cursor = 'pointer';
 
             // Add delete button event listener
             deleteButton.addEventListener('click', function(event) {

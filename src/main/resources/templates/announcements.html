@@ -1,10 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="styles.css">
+<link href="newstyles.css" rel="stylesheet">
 <head>
   <meta charset="UTF-8">
   <title>Announcements</title>
 </head>
+<body class = "body">
+<div class="main-container">
+  <div class="header">
+    <div class = "left-buttons">
+      <form id="dashboardForm" action="/dashboard" method="get">
+        <button type="submit" class="btn" id="dashboardButton">Dashboard</button>
+      </form>
+      <form id="allAnnouncementsForm" action="/announcements" method="get">
+        <button class = "btn" type="submit">All announcements</button>
+      </form>
+      <form id="createForm" action="/CreateNew" method="get">
+        <button class = "btn" type="submit">Create New</button>
+      </form>
+    </div>
+    <div class="dropdown">
+      <button onclick="myFunction()" class="dropdown-btn">Profile</button>
+      <div id="listDropdown" class="dropdown-content">
+        <a th:href="@{/Profile}">Profile</a>
+        <a th:href="@{/MyAnnouncements}">My Announcements</a>
+        <a th:href="@{/Statistics}">Statistics</a>
+      </div>
+    </div>
+  </div>
+  <div class="Header1">
+    <h1 id="headerB" style="margin-top: 20px">
+      Announcements
+    </h1>
+  </div>
+  <!-- Category Filter Dropdown -->
+  <div class="categoriesDropdown">
+    <label for="categorySelect">Filter by Category:</label>
+    <select id="categorySelect">
+      <option value="">All Categories</option> <!-- Default option to show all -->
+    </select>
+  </div>
+
+  <div id="announcements-container">
+    <!-- Announcements will be dynamically added here -->
+  </div>
+
+  <div style="text-align: center; padding-bottom: 20px; height:100px">
+    <button class="pagesButtons prev">Previous Page</button>
+    <button class="pagesButtons next">Next Page</button>
+  </div>
+
+  <script src="/announcements.js"></script>
+</div>
+</body>
+</html>
+
+<!-- old file setup:
+
 <body class = "body">
 <div class = "buttonsDiv">
   <form action="/" method="get" style = "margin-left: 225px">
@@ -34,23 +86,20 @@
 <h1 class="header1">
   Announcements
 </h1>
-<!-- Category Filter Dropdown -->
+
 <div style="text-align: center; padding: 20px;">
   <label for="categorySelect">Filter by Category:</label>
   <select id="categorySelect">
-    <option value="">All Categories</option> <!-- Default option to show all -->
+    <option value="">All Categories</option>
   </select>
 </div>
 
 <div id="announcements-container">
-  <!-- Announcements will be dynamically added here -->
+  Announcements will be dynamically added here
 </div>
 
 <div style="text-align: center; padding-bottom: 20px; height:100px">
   <button class="pagesButtons prev">Previous Page</button>
   <button class="pagesButtons next">Next Page</button>
 </div>
-
-<script src="/announcements.js"></script>
-</body>
-</html>
+-->
