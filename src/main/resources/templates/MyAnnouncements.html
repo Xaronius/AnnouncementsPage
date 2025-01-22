@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="styles.css">
+<link href="newstyles.css" rel="stylesheet">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<body class = "body">
+    <div class="main-container">
+        <div class="header">
+            <div class = "left-buttons">
+                <form id="dashboardForm" action="/dashboard" method="get">
+                    <button type="submit" class="btn" id="dashboardButton">Dashboard</button>
+                </form>
+                <form id="allAnnouncementsForm" action="/announcements" method="get">
+                    <button class = "btn" type="submit">All announcements</button>
+                </form>
+                <form id="createForm" action="/CreateNew" method="get">
+                    <button class = "btn" type="submit">Create New</button>
+                </form>
+            </div>
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropdown-btn">Profile</button>
+                <div id="listDropdown" class="dropdown-content">
+                    <a th:href="@{/Profile}">Profile</a>
+                    <a th:href="@{/MyAnnouncements}">My Announcements</a>
+                    <a th:href="@{/Statistics}">Statistics</a>
+                </div>
+            </div>
+        </div>
+        <div class="Header1">
+            <h1 id="headerD" style="margin-top: 20px">
+                My Announcements
+            </h1>
+        </div>
+
+        <div id="announcements-container">
+            <!-- Announcements will be dynamically added here -->
+        </div>
+
+        <script src="/MyAnnouncements.js"></script>
+    </div>
+</body>
+</html>
+
+<!--
+
 <body class = "body">
 <div class = "buttonsDiv">
     <form action="/" method="get" style = "margin-left: 225px">
@@ -38,9 +78,8 @@
 </div>
 
 <div id="announcements-container">
-    <!-- Announcements will be dynamically added here -->
 </div>
 
 <script src="/MyAnnouncements.js"></script>
 </body>
-</html>
+-->

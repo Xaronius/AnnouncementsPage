@@ -1,41 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="styles.css">
+<link href="newstyles.css" rel="stylesheet">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body class = "body">
-<div class = "buttonsDiv">
-  <form action="/" method="get" style = "margin-left: 225px">
-    <button class = "pagesButtons" type="submit">
-      Main Page
-    </button>
-  </form>
-  <form action="/announcements" method="get">
-    <button class = "pagesButtons" type="submit">
-      All announcements
-    </button>
-  </form>
-  <form action="/CreateNew" method="get">
-    <button class = "pagesButtons" type="submit">
-      Create New
-    </button>
-  </form>
-  <div class="dropdown">
-    <button onclick="myFunction()" class="dropButton">Profile</button>
-    <div id="myDropdown" class="dropdown-content">
-      <a href="/Profile">Profile</a>
-      <a href="/MyAnnouncements">My Announcements</a>
-      <a href="/Statistics">Statistics</a>
+  <div class="main-container">
+    <div class="header">
+      <div class = "left-buttons">
+        <form id="dashboardForm" action="/dashboard" method="get">
+          <button type="submit" class="btn" id="dashboardButton">Dashboard</button>
+        </form>
+        <form id="allAnnouncementsForm" action="/announcements" method="get">
+          <button class = "btn" type="submit">All announcements</button>
+        </form>
+        <form id="createForm" action="/CreateNew" method="get">
+          <button class = "btn" type="submit">Create New</button>
+        </form>
+      </div>
+      <div class="dropdown">
+        <button onclick="myFunction()" class="dropdown-btn">Profile</button>
+        <div id="listDropdown" class="dropdown-content">
+          <a th:href="@{/Profile}">Profile</a>
+          <a th:href="@{/MyAnnouncements}">My Announcements</a>
+          <a th:href="@{/Statistics}">Statistics</a>
+        </div>
+      </div>
+    </div>
+    <div class="Header1">
+      <h1 id="headerE" style="margin-top: 20px">
+        Here will be Your Profile main info and settings
+      </h1>
     </div>
   </div>
-</div>
-<div>
-  <h1 class = "header1">
-    Here will be Your Profile main info and settings
-  </h1>
-</div>
 <script src="/Profile.js"></script>
 </body>
 </html>
+
+<!--
+
+<body class = "body">
+<div class="main-container">
+  <div class = "buttonsDiv">
+    <form action="/" method="get" style = "margin-left: 225px">
+      <button class = "pagesButtons" type="submit">
+        Main Page
+      </button>
+    </form>
+    <form action="/announcements" method="get">
+      <button class = "pagesButtons" type="submit">
+        All announcements
+      </button>
+    </form>
+    <form action="/CreateNew" method="get">
+      <button class = "pagesButtons" type="submit">
+        Create New
+      </button>
+    </form>
+    <div class="dropdown">
+      <button onclick="myFunction()" class="dropButton">Profile</button>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="/Profile">Profile</a>
+        <a href="/MyAnnouncements">My Announcements</a>
+        <a href="/Statistics">Statistics</a>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h1 class = "header1">
+      Here will be Your Profile main info and settings
+    </h1>
+  </div>
+  </div>
+<script src="/Profile.js"></script>
+</body>
+-->

@@ -6,17 +6,19 @@
     <link href="newstyles.css" rel="stylesheet">
 </head>
 <body class = "body">
-    <div class="main-containder">
+    <div class="main-container">
         <div class="header">
-            <form id="dashboardForm" action="/dashboard" method="get">
-                <button type="submit" class="btn" id="dashboardButton">Dashboard</button>
-            </form>
-            <form id="allAnnouncementsForm" action="/announcements" method="get">
-                <button class = "btn" type="submit">All announcements</button>
-            </form>
-            <form id="createForm" action="/CreateNew" method="get">
-                <button class = "btn" type="submit">Create New</button>
-            </form>
+            <div class = "left-buttons">
+                <form id="dashboardForm" action="/dashboard" method="get">
+                    <button type="submit" class="btn" id="dashboardButton">Dashboard</button>
+                </form>
+                <form id="allAnnouncementsForm" action="/announcements" method="get">
+                    <button class = "btn" type="submit">All announcements</button>
+                </form>
+                <form id="createForm" action="/CreateNew" method="get">
+                    <button class = "btn" type="submit">Create New</button>
+                </form>
+            </div>
             <div class="dropdown">
                 <button onclick="myFunction()" class="dropdown-btn">Profile</button>
                 <div id="listDropdown" class="dropdown-content">
@@ -26,20 +28,20 @@
                 </div>
             </div>
         </div>
-        <div class="header1">
-            <h1 id="headerA" style="margin-top: 100px">
+        <div class="Header1">
+            <h1 id="headerA" style="margin-top: 20px">
                 Dashboard
             </h1>
         </div>
         
-        <div style="margin-top: 20px;">
+        <div style="margin-top: 20px; margin-left: -2%">
             <form action="/announcement" method="get" class="mainPageAnnouncement1Div">
                 <button type="submit" class="AnnouncementButton">
                     <h2 class="MainPageAnnouncementHeader">
                         Announcement 1
                     </h2>
                     <p class="MainPageAnnouncementText">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 1
+                        placeholder description 1
                     </p>
                 </button>
             </form>
@@ -49,19 +51,19 @@
                         Announcement 2
                     </h2>
                     <p class="MainPageAnnouncementText">
-                        Another example of announcement content.
+                        placeholder description 2
                     </p>
                 </button>
             </form>
         </div>
-        <div style="margin-top: 20px; margin-left: 2%;">
+        <div style="margin-top: 20px;">
             <form action="/announcement" method="get" class="mainPageAnnouncement3Div">
                 <button type="submit" class="AnnouncementButton">
                     <h2 class="MainPageAnnouncementHeader">
                         Announcement 3
                     </h2>
                     <p class="MainPageAnnouncementText">
-                        lorem3
+                        placeholder description 3
                     </p>
                 </button>
             </form>
@@ -71,7 +73,7 @@
                         Announcement 4
                     </h2>
                     <p class="MainPageAnnouncementText">
-                        lorem 4444444444
+                        placeholder description 4
                     </p>
                 </button>
             </form>
@@ -81,7 +83,7 @@
                         Announcement 5
                     </h2>
                     <p class="MainPageAnnouncementText">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolorem dolores impedit, maxime nulla numquam officia, optio perferendis perspiciatis quam quasi quibusdam, quidem quisquam reiciendis repudiandae sequi similique unde ut. 555555
+                        placeholder description 5
                     </p>
                 </button>
             </form>
