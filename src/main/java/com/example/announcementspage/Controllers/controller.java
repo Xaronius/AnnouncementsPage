@@ -66,7 +66,14 @@ public class controller {
     public String showAnnouncement(@RequestParam("adId") long adId, Model model) {
         model.addAttribute("adId", adId);
         return "announcementPage"; // This refers to announcementPage.html in the templates folder
-      }
+    }
+
+    @GetMapping("/UpdateAnnouncement")
+    public String updateAnnouncementPage(@RequestParam("id") long id, Model model) {
+        model.addAttribute("announcementId", id); // Pass the announcement ID to the page
+        return "UpdateAnnouncement"; // Points to UpdateAnnouncement.html in the templates folder
+    }
+
 //    @GetMapping("/mainpage/announcement")
 //    public String showAnnouncement(@RequestParam("title") String title,
 //                                   @RequestParam("text") String text) {
