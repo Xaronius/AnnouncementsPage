@@ -43,6 +43,8 @@ public class User {
 
     @Column(name = EMAIL, nullable = false)
     public String getEmail() { return this.email; }
+
+    @JoinColumn(name = "ID_011")
     @Column(name = PASSWORD, nullable = false)
     public Password getPassword() { return this.password; }
 
