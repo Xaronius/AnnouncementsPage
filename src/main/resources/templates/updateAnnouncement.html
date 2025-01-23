@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="newstyles.css" rel="stylesheet">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<body class = "body">
+  <div class="main-container">
+    <div class="header">
+      <div class="left-buttons">
+        <form id="dashboardForm" action="/dashboard" method="get">
+          <button type="submit" class="btn" id="dashboardButton">Dashboard</button>
+        </form>
+        <form id="allAnnouncementsForm" action="/announcements" method="get">
+          <button class="btn" type="submit">All announcements</button>
+        </form>
+        <form id="createForm" action="/CreateNew" method="get">
+          <button class="btn" type="submit">Create New</button>
+        </form>
+      </div>
+      <div class="dropdown">
+        <button onclick="myFunction()" class="dropdown-btn">Profile</button>
+        <div id="listDropdown" class="dropdown-content">
+          <a th:href="@{/Profile}">Profile</a>
+          <a th:href="@{/MyAnnouncements}">My Announcements</a>
+          <a th:href="@{/Statistics}">Statistics</a>
+        </div>
+      </div>
+    </div>
+    <div class="Header1">
+      <h1 id="headerC" style="margin-top: 20px">Update Announcement</h1>
+    </div>
+    <div style="text-align: center">
+      <form id="updateAnnouncementForm" enctype="multipart/form-data">
+        <label class="NewLabels" for="title">Announcement Title</label><br><br>
+        <input class="NewAnnouncementTitle" type="text" id="title" name="title" maxlength="25" required><br><br>
+
+        <label class="NewLabels" for="announcementText">Announcement Text</label><br><br>
+        <textarea class="NewAnnouncementText" id="announcementText" name="announcementText" required></textarea><br><br>
+
+        <label class="NewLabels" for="email">Email Address</label><br><br>
+        <input class="NewAnnouncementEmail" type="email" id="email" name="email" required><br><br>
+
+        <label class="NewLabels" for="telephone">Phone Number</label><br><br>
+        <input class="NewAnnouncementTelephone"
+               type="tel"
+               id="telephone"
+               name="telephone"
+               maxlength="10"
+               pattern="\d{10}"
+               required><br><br>
+
+        <label class="NewLabels" for="categorySelect">Category</label><br><br>
+        <select id="categorySelect" name="category" required></select><br><br>
+
+        <div class="uploadContainer">
+          <h2 style="font-family: cursive;">Upload Images</h2>
+          <label for="imageInput" class="custom-file-label">Choose Files</label>
+          <input type="file" id="imageInput" name="images" accept="image/*" multiple>
+          <div id="previewContainer"></div>
+          <p id="status"></p>
+        </div>
+
+        <button type="submit" class="submitButton">Update</button>
+      </form>
+    </div>
+  </div>
+  <script src="/UpdateAnnouncement.js"></script>
+</body>
+
+</body>
+</html>

@@ -252,4 +252,74 @@ public class AnnouncementController {
         announcementRepository.deleteById(adId);  // Delete the announcement
         return ResponseEntity.ok(Map.of("message", "Announcement deleted successfully!"));
     }
+
+    @PutMapping("/update/{adId}")
+    public ResponseEntity<?> updateAnnouncement(
+            @PathVariable Long adId,
+            @RequestBody Map<String, Object> payload) {
+        try {
+            // Fetch the existing announcement
+            Optional<Announcement> announcementOptional = announcementRepository.findById(adId);
+            if (!announcementOptional.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Announcement not found");
+            }
+
+            Announcement announcement = announcementOptional.get();
+
+            // Update fields if present in the request payload
+            if (payload.containsKey("title")) {
+                announcement.setTitle((String) payload.get("title"));
+            }
+            if (payload.containsKey("description")) {
+                announcement.setDescription((String) payload.get("description"));
+            }
+            if (payload.containsKey("contact_email")) {
+                announcement.setContactEmail((String) payload.get("contact_email"));
+            }
+            if (payload.containsKey("contact_phone")) {
+                announcement.setContactPhone((String) payload.get("contact_phone"));
+            }
+            if (payload.containsKey("category")) {
+                Long categoryId = Long.valueOf((String) payload.get("category"));
+                Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
+                if (!categoryOptional.isPresent()) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                            .body(Map.of("error", "Invalid category ID"));
+                }
+                announcement.setCategory(categoryId);
+            }
+
+            // Handle images
+            if (payload.containsKey("images")) {
+                // Clear old images
+                List<AnnouncementImage> oldImages = announcement.getImages();
+                oldImages.clear(); // Use orphan removal to delete from the DB
+
+                // Save new images
+                List<String> newImages = (List<String>) payload.get("images");
+                for (String base64Image : newImages) {
+                    AnnouncementImage announcementImage = new AnnouncementImage();
+                    announcementImage.setAnnouncement(announcement);
+                    announcementImage.setImage(base64Image);
+                    oldImages.add(announcementImage); // Attach to announcement
+                }
+            } else {
+                // If images are not provided in the payload, retain existing images.
+                System.out.println("No new images provided, retaining existing ones.");
+            }
+
+            // Update the updatedAt timestamp
+            announcement.setUpdatedAt(LocalDateTime.now());
+
+            // Save the updated announcement
+            Announcement updatedAnnouncement = announcementRepository.save(announcement);
+
+            return ResponseEntity.ok(Map.of("message", "Announcement updated successfully!",
+                    "updatedAnnouncement", updatedAnnouncement));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Error: " + e.getMessage()));
+        }
+    }
 }
+

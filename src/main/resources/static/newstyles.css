@@ -297,6 +297,22 @@
     transform: scale(1.05); /* Slight zoom on hover */
 }
 
+.update-button {
+    background: linear-gradient(135deg, #25ccb6, #0da692); /* Gradient background */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.update-button:hover {
+    background: linear-gradient(135deg, #22baa6, #0b8a79); /* Darker gradient on hover */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
 /* ------------------------------ announcementPage ------------------------------- */
 .AnnouncementsCreator{
     color: white;
@@ -307,7 +323,7 @@
 
 .announcementPageDiv{
     width: 90%;
-    height: 90%;
+    height: auto;
     margin-left: 5%;
     text-align: center;
     padding: 10px;

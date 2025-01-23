@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchAnnouncements(currentPage);
 
     function fetchAnnouncements(page) {
-        let url = `/api/announcements/user/3?page=${page}&size=${pageSize}`;  // Modify as needed
+        let url = `/api/announcements/user/2?page=${page}&size=${pageSize}`;  // Modify as needed
 
         fetch(url)
             .then(response => response.json())
@@ -44,6 +44,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
+            // Add Update Button
+            const updateButton = document.createElement('button');
+            updateButton.classList.add('update-button');
+            updateButton.textContent = 'Update';
+            updateButton.style.position = 'absolute';
+            updateButton.style.bottom = '10px';
+            updateButton.style.right = '10px';
+
+            // add update event listener
+            updateButton.addEventListener('click', function (event) {
+                event.stopPropagation();
+                const url = `/UpdateAnnouncement?id=${announcement.id}`; // Ensure this matches the GetMapping
+                window.location.href = url;
+            });
+
             const titleElement = document.createElement('h2');
             titleElement.classList.add('AnnouncementsTitle');
             titleElement.textContent = announcement.title;
@@ -52,7 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
             descriptionElement.classList.add('AnnouncementsText');
             descriptionElement.textContent = announcement.description;
 
-            announcementDiv.appendChild(deleteButton);  // Add delete button to the div
+            announcementDiv.appendChild(deleteButton);
+            announcementDiv.appendChild(updateButton);
             announcementDiv.appendChild(titleElement);
             announcementDiv.appendChild(descriptionElement);
 
