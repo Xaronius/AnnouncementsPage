@@ -25,24 +25,24 @@ public class UserController {
     HttpHeaders headers;
     private User user;
 
-    @PostMapping("/login")
-    public ResponseEntity<Void> handleFormSubmit(@RequestParam String username, @RequestParam String password, Model model) {
-
-        if (StringUtil.isNullOrEmpty(password))
-            return responseToHtml("/LoginPage");
-        if (!StringUtil.isNullOrEmpty(username)) {
-            model.addAttribute("username", username);
-            model.addAttribute("password", password);
-            this.user = userService.findUserByUsername(username);
-        }
-        if (Objects.isNull(user)) {
-            return responseToHtml("/LoginPage");
-        }
-        if (userService.checkPasswordById(password, user)) {
-            return responseToHtml("/dashboard");
-        }
-        return responseToHtml("/LoginPage");
-    }
+//    @PostMapping("/processlogin")
+//    public ResponseEntity<Void> handleFormSubmit(@RequestParam String login, @RequestParam String password, Model model) {
+//
+//        if (StringUtil.isNullOrEmpty(password))
+//            return responseToHtml("/LoginPage");
+//        if (!StringUtil.isNullOrEmpty(login)) {
+//            model.addAttribute("username", login);
+//            model.addAttribute("password", password);
+//            this.user = userService.findUserByUsername(login);
+//        }
+//        if (Objects.isNull(user)) {
+//            return responseToHtml("/LoginPage");
+//        }
+//        if (userService.checkPasswordById(password, user)) {
+//            return responseToHtml("/dashboard");
+//        }
+//        return responseToHtml("/LoginPage");
+//    }
 
     @PostMapping("/register")
     public ResponseEntity<Void> handleFormSubmit(@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model) {

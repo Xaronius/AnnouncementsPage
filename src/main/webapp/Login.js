@@ -1,6 +1,6 @@
 document.getElementById('loginForm').addEventListener('submit', function(event) {
 
-    const username = document.getElementById('username').value;
+    const username = document.getElementById('login').value;
     const password = document.getElementById('password').value;
 
     // Enhanced validation
