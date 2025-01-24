@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <body class = "body">
     <div class="main-container">
@@ -24,7 +27,6 @@
                 <div id="listDropdown" class="dropdown-content">
                     <a th:href="@{/Profile}">Profile</a>
                     <a th:href="@{/MyAnnouncements}">My Announcements</a>
-                    <a th:href="@{/Statistics}">Statistics</a>
                     <a th:href="@{/logout}">Logout</a>
                 </div>
             </div>

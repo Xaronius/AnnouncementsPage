@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+
+  <meta name="_csrf" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <body>
 <body class = "body">
@@ -25,7 +28,6 @@
         <div id="listDropdown" class="dropdown-content">
           <a th:href="@{/Profile}">Profile</a>
           <a th:href="@{/MyAnnouncements}">My Announcements</a>
-          <a th:href="@{/Statistics}">Statistics</a>
           <a th:href="@{/logout}">Logout</a>
         </div>
       </div>
@@ -50,7 +52,7 @@
                id="telephone"
                name="telephone"
                maxlength="10"
-               pattern="\d{10}"
+               pattern="\d{9,10}"
                required><br><br>
 
         <label class="NewLabels" for="categorySelect">Category</label><br><br>

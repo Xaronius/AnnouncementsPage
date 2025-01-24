@@ -6,10 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const categorySelect = document.getElementById('categorySelect'); // Correct ID
 
     // Fetch categories from the backend
-    fetch('/api/announcements/categories')  // Correct URL
+    fetch('/api/announcements/categories')
         .then(response => response.json())
         .then(categories => {
-            // Populate the dropdown with categories
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category.id;  // Use 'id' from response
@@ -23,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Preview multiple images
     imageInput.addEventListener('change', function () {
-        previewContainer.innerHTML = '';
+        previewContainer.innerHTML = ''; // Clear previous previews
 
         Array.from(imageInput.files).forEach(file => {
             const reader = new FileReader();
@@ -50,18 +49,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const files = imageInput.files;
         const category = categorySelect.value;
 
-        if (files.length === 0) {
-            statusText.textContent = 'Please select at least one image!';
-            return;
-        }
-
+        // Ensure category is selected
         if (!category) {
             statusText.textContent = 'Please select a category!';
             return;
         }
 
-        // Convert images to Base64
-        const base64Images = await Promise.all(
+        // Convert images to Base64 if files are provided
+        const base64Images = files.length > 0 ? await Promise.all(
             Array.from(files).map(file => {
                 return new Promise((resolve, reject) => {
                     const reader = new FileReader();
@@ -74,29 +69,35 @@ document.addEventListener('DOMContentLoaded', function () {
                     reader.readAsDataURL(file);
                 });
             })
-        );
+        ) : []; // Empty array if no files
 
+        // If no images are selected, proceed without images
         const payload = {
             title: title,
             description: description,
             contact_email: email,
             contact_phone: telephone,
             category: category, // Send category ID
-            images: base64Images
+            images: base64Images // Send empty array if no images
         };
+
+        // Retrieve CSRF token and header name from meta tags
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeaderName = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
         // Send JSON data
         try {
             const response = await fetch('/api/announcements/create', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    [csrfHeaderName]: csrfToken
                 },
                 body: JSON.stringify(payload)
             });
 
             // Check if response is JSON, and parse accordingly
-            const result = await response.json();  // Will parse the response body to JSON
+            const result = await response.json();
 
             if (response.ok) {
                 statusText.textContent = 'Announcement created successfully!';

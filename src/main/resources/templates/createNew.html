@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <body class = "body">
     <div class="main-container">
@@ -24,7 +27,6 @@
                 <div id="listDropdown" class="dropdown-content">
                     <a th:href="@{/Profile}">Profile</a>
                     <a th:href="@{/MyAnnouncements}">My Announcements</a>
-                    <a th:href="@{/Statistics}">Statistics</a>
                     <a th:href="@{/logout}">Logout</a>
                 </div>
             </div>
@@ -51,7 +53,7 @@
                        id="telephone"
                        name="telephone"
                        maxlength="10"
-                       pattern="\d{10}"
+                       pattern="\d{9,10}"
                        required
                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);"><br><br>
 
@@ -63,7 +65,7 @@
                 <div class="uploadContainer">
                     <h2 style = "font-family: cursive;">Upload Images</h2>
                     <label for="imageInput" class="custom-file-label">Choose Files</label>
-                    <input type="file" id="imageInput" name="images" accept="image/*" multiple required>
+                    <input type="file" id="imageInput" name="images" accept="image/*" multiple>
                     <div id="previewContainer"></div>
                     <p id="status"></p>
                 </div>
