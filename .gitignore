@@ -41,3 +41,4 @@ out/
 *.db
 /sqlite/
 /sqlite/announcementsapp_sqlite.db
+sqlite/announcementsapp_sqlite.db
