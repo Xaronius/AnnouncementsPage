@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchAnnouncements(currentPage);
 
     function fetchAnnouncements(page) {
-        let url = `/api/announcements/user/2?page=${page}&size=${pageSize}`;  // Modify as needed
+        // Change the URL to fetch from the logged-in user’s announcements endpoint
+        let url = `/api/announcements/user/announcements?page=${page}&size=${pageSize}`;
 
         fetch(url)
             .then(response => response.json())
@@ -97,8 +98,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to delete an announcement
     function deleteAnnouncement(announcementId, announcementDiv) {
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeaderName = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
         fetch(`/api/announcements/delete/${announcementId}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                [csrfHeaderName]: csrfToken, // Include the CSRF token dynamically
+            }
         })
             .then(response => {
                 if (response.ok) {

@@ -120,10 +120,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         console.log("Payload:", payload);
 
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeaderName = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
         fetch(`/api/announcements/update/${adId}`, { // Corrected URL
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                [csrfHeaderName]: csrfToken,
             },
             body: JSON.stringify(payload),
         })

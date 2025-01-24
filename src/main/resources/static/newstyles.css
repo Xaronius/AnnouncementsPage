@@ -139,7 +139,8 @@
     margin-left: 4%;
     margin-right: 1%;
     text-align: center;
-
+    flex-direction: column;
+    overflow: hidden;
     border: none;
     border-radius: 10px;
     color: #fff;
@@ -157,7 +158,8 @@
     width: 29.25%;
     margin-left: 1%;
     text-align: center;
-
+    flex-direction: column;
+    overflow: hidden;
     border: none;
     border-radius: 10px;
     color: #fff;
@@ -175,7 +177,8 @@
     width: 30%;
     margin-left: 2%;
     text-align: center;
-
+    flex-direction: column;
+    overflow: hidden;
     border: none;
     border-radius: 10px;
     color: #fff;
@@ -208,12 +211,14 @@
     color: white;
     font-size: 14px;
     font-family: cursive;
+    max-height: 191px;
+    overflow: hidden;
 }
 
 /* ------------------------------ announcements ------------------------------- */
 
 .categoriesDropdown label {
-    display: block; /* Ensures the label is above the dropdown */
+    display: block;
     font-family: 'Arial', sans-serif;
     font-size: 1rem;
     font-weight: bold;
@@ -222,10 +227,10 @@
 }
 
 #categorySelect {
-    width: 60%; /* Wider dropdown */
+    width: 60%;
     padding: 10px;
     font-size: 1rem;
-    border: 2px solid #4A90E2; /* Add a clean border */
+    border: 2px solid #4A90E2;
     border-radius: 5px;
     background-color: #ffffff;
     color: #333;
@@ -234,14 +239,14 @@
 }
 
 #categorySelect:hover {
-    border-color: #357ABD; /* Slight color change on hover */
-    background-color: #f7f9fc; /* Light background on hover */
+    border-color: #357ABD;
+    background-color: #f7f9fc;
 }
 
 #categorySelect:focus {
     outline: none;
-    border-color: #2A6DB3; /* Highlighted border on focus */
-    box-shadow: 0 0 5px rgba(42, 109, 179, 0.5); /* Subtle focus glow */
+    border-color: #2A6DB3;
+    box-shadow: 0 0 5px rgba(42, 109, 179, 0.5);
 }
 
 .AnnouncementsDiv{
@@ -249,7 +254,8 @@
     width: 90%;
     margin-left: 5%;
     margin-top: 20px;
-
+    flex-direction: column;
+    overflow: hidden;
     border: none;
     border-radius: 10px;
     color: #fff;
@@ -275,6 +281,8 @@
     padding-right: 10px;
     height: 120px;
     font-family: cursive;
+    max-height: 110px;
+    overflow: hidden;
 }
 
 .image-container img {
@@ -282,7 +290,7 @@
 }
 
 .delete-button {
-    background: linear-gradient(135deg, #da3e3e, #b42121); /* Gradient background */
+    background: linear-gradient(135deg, #da3e3e, #b42121);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -293,12 +301,12 @@
 }
 
 .delete-button:hover {
-    background: linear-gradient(135deg, #b42121, #8c1a1a); /* Darker gradient on hover */
-    transform: scale(1.05); /* Slight zoom on hover */
+    background: linear-gradient(135deg, #b42121, #8c1a1a);
+    transform: scale(1.05);
 }
 
 .update-button {
-    background: linear-gradient(135deg, #25ccb6, #0da692); /* Gradient background */
+    background: linear-gradient(135deg, #25ccb6, #0da692);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -309,8 +317,22 @@
 }
 
 .update-button:hover {
-    background: linear-gradient(135deg, #22baa6, #0b8a79); /* Darker gradient on hover */
-    transform: scale(1.05); /* Slight zoom on hover */
+    background: linear-gradient(135deg, #22baa6, #0b8a79);
+    transform: scale(1.05);
+}
+
+.pagesButtons{
+    width: 160px;
+    height: 60px;
+    background: #4A90E2;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    border: none;
+    border-radius: 5px;
 }
 
 /* ------------------------------ announcementPage ------------------------------- */
@@ -327,7 +349,7 @@
     margin-left: 5%;
     text-align: center;
     padding: 10px;
-    position: relative; /* Sets a positioning context for children */
+    position: relative;
 
     border: none;
     border-radius: 10px;
@@ -360,9 +382,9 @@
     text-align: right;
     font-size: 20px;
     font-weight: bold;
-    position: absolute; /* Use absolute positioning */
-    bottom: -10px; /* Distance from the bottom of the parent */
-    right: 10px; /* Distance from the right of the parent */
+    position: absolute;
+    bottom: -10px;
+    right: 10px;
 }
 
 /* ---------------------- Create New Page ---------------------- */

@@ -135,14 +135,11 @@ public class AnnouncementController {
     @PostMapping("/create")
     public ResponseEntity<?> createAnnouncement(@RequestBody Map<String, Object> payload) {
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            System.out.println("Authentication: " + authentication);
-            // Retrieve current user
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            System.out.println("Retrieved username: " + username);
 
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            // Retrieve current user
+            String username = authentication.getName();
             User currentUser = userService.findUserByUsername(username);
-            System.out.println("Retrieved user: " + currentUser);
 
             if (currentUser == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -154,7 +151,7 @@ public class AnnouncementController {
             String email = (String) payload.get("contact_email");
             String telephone = (String) payload.get("contact_phone");
             List<String> images = (List<String>) payload.get("images");
-            Long categoryId = Long.valueOf((String) payload.get("category")); // Retrieve the category ID (correcting type to String -> Long)
+            Long categoryId = Long.valueOf((String) payload.get("category"));
 
             // Get the Category object by ID
             Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
@@ -177,17 +174,18 @@ public class AnnouncementController {
             // Save Announcement first to get its ID
             Announcement savedAnnouncement = announcementRepository.save(announcement);
 
-            // Save Images
-            for (String base64Image : images) {
-                AnnouncementImage image = new AnnouncementImage();
-                image.setImage(base64Image);
-                image.setAnnouncement(savedAnnouncement);
-                announcementImageRepository.save(image);
+            // Only save images if the list is not empty
+            if (images != null && !images.isEmpty()) {
+                for (String base64Image : images) {
+                    AnnouncementImage image = new AnnouncementImage();
+                    image.setImage(base64Image);
+                    image.setAnnouncement(savedAnnouncement);
+                    announcementImageRepository.save(image);
+                }
             }
 
             return ResponseEntity.ok(Map.of("message", "Announcement created successfully!"));
         } catch (Exception e) {
-            // Returning error in JSON format
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "Error: " + e.getMessage()));
         }
@@ -206,6 +204,7 @@ public class AnnouncementController {
         return ResponseEntity.ok(response);
     }
 
+    /*
     @GetMapping("/user/{userId}")
     public ResponseEntity<Map<String, Object>> listAnnouncementsByUser(
             @PathVariable Long userId,
@@ -240,6 +239,67 @@ public class AnnouncementController {
         response.put("currentPage", announcementPage.getNumber());
 
         return ResponseEntity.ok(response);
+    }
+    */
+
+    @GetMapping("/user/announcements")
+    public ResponseEntity<Map<String, Object>> listAnnouncementsByUser(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size)
+    {
+        try
+        {
+            // Retrieve the username of the logged-in user
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String username = authentication.getName();  // Get logged-in user's username
+
+            User currentUser = userService.findUserByUsername(username);  // Find the User entity based on the username
+            if (currentUser == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User not found"));
+            }
+
+            Long userId = currentUser.getId();  // Get the user ID
+            boolean isAdmin = userService.isUserAdmin(userId);  // Check if the user is an admin
+
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Announcement> announcementPage;
+
+            if (isAdmin) {
+                // Admin can see all announcements
+                announcementPage = announcementRepository.findAll(pageable);
+            } else {
+                // Regular user can only see their own announcements
+                announcementPage = announcementRepository.findByUserId(userId, pageable);
+            }
+
+            List<Map<String, Object>> announcementsWithImages = announcementPage.getContent().stream().map(announcement -> {
+                Map<String, Object> annMap = new HashMap<>();
+                annMap.put("id", announcement.getAdId());
+                annMap.put("title", announcement.getTitle());
+                annMap.put("description", announcement.getDescription());
+                annMap.put("contactEmail", announcement.getContactEmail());
+                annMap.put("contactPhone", announcement.getContactPhone());
+                annMap.put("nickName", announcement.getUserId());
+
+                List<String> base64Images = announcement.getImages().stream()
+                        .map(AnnouncementImage::getImage)
+                        .toList();
+
+                annMap.put("images", base64Images);
+                return annMap;
+            }).toList();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("content", announcementsWithImages);
+            response.put("totalElements", announcementPage.getTotalElements());
+            response.put("totalPages", announcementPage.getTotalPages());
+            response.put("currentPage", announcementPage.getNumber());
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Error: " + e.getMessage()));
+        }
     }
 
     @DeleteMapping("/delete/{adId}")
