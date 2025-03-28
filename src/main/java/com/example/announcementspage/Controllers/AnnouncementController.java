@@ -153,7 +153,7 @@ public class AnnouncementController {
             List<String> images = (List<String>) payload.get("images");
             Long categoryId = Long.valueOf((String) payload.get("category"));
 
-            // Get the Category object by ID
+            // Get the Category o   bject by ID
             Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
             if (!categoryOptional.isPresent()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
