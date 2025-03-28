@@ -77,4 +77,9 @@ public class UserServiceImpl implements UserService {
 
         return false; // Default return false if the user is not found
     }
+
+    public void save(User user) {
+        // You can perform additional validation or logic here before saving if needed
+        userRepository.save(user);  // Save or update the user entity
+    }
 }

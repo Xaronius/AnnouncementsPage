@@ -11,4 +11,5 @@ public interface UserService {
     User createUser(String username, String email, String password);
     User findUserById(Long id);
     boolean isUserAdmin(Long id);
+    void save(User user);
 }

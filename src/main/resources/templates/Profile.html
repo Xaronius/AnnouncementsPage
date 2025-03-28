@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+  <meta name="_csrf" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <body class = "body">
   <div class="main-container">
@@ -29,9 +32,27 @@
       </div>
     </div>
     <div class="Header1">
-      <h1 id="headerE" style="margin-top: 20px">
-        Here will be Your Profile main info and settings
-      </h1>
+      <h1 id="username-display"></h1> <!-- Placeholder for displaying the username -->
+    </div>
+
+    <!-- Reset Email Button -->
+    <button id="reset-email-btn" class="emailButton">Reset Email</button>
+
+    <!-- Email Reset Form (Initially Hidden) -->
+    <div id="email-reset-form" style="display:none;">
+      <form id="reset-email-form">
+        <label class="profileLabels" for="old-email">Old Email</label>
+        <input class="ProfileEmailField" type="email" id="old-email" required />
+
+        <label class="profileLabels" for="new-email">New Email</label>
+        <input class="ProfileEmailField" type="email" id="new-email" required />
+
+        <label class="profileLabels" for="confirm-email">Confirm New Email</label>
+        <input class="ProfileEmailField" type="email" id="confirm-email" required />
+
+        <button class="profileSubmitButton" type="submit">Submit</button>
+        <p id="status-message"></p>
+      </form>
     </div>
   </div>
 <script src="/Profile.js"></script>
